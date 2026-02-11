@@ -3,7 +3,5 @@
 @section('title', 'Home')
 
 @section('content')
-@include('site.pages.home.sections.banner')
-@include('site.pages.home.sections.portfolio')
-@include('site.pages.home.sections.contact')
+    <h1>Home</h1>
 @endsection
