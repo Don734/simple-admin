@@ -35,18 +35,6 @@ return [
             'route'      => 'admin.projects.index',
             'permission' => 'view_projects',
         ],
-        [
-            'title'      => 'categories',
-            'icon'       => 'bi bi-folder2',
-            'route'      => 'admin.categories.index',
-            'permission' => 'view_categories',
-        ],
-        [
-            'title'      => 'technologies',
-            'icon'       => 'bi bi-braces',
-            'route'      => 'admin.technologies.index',
-            'permission' => 'view_technologies',
-        ],
         // [
         //     'title'       => 'media',
         //     'icon'       => 'bi bi-image',

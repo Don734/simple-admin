@@ -6,30 +6,34 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class PermissionAndGroupSeeder extends Seeder
 {
-    const GROUPS_NAME = [
-        'Super Admin'
-    ];
-
-    const PERMS_NAME = config('admin.permissions');
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
+        $guardName = config('admin.auth_guard', 'web');
+        $rolesConfig = config('admin.roles', []);
+        $permissionsConfig = config('admin.permissions', []);
+        $groupNames = array_merge([
+            'Super Admin',
+        ], array_map(fn($role) => $role['label'], $rolesConfig));
+
         $groups = [];
         $permissions = [];
-        foreach (self::GROUPS_NAME as $group_name) {
-            $groups[$group_name] = Role::findOrCreate($group_name);
+        foreach ($groupNames as $group_name) {
+            $groups[$group_name] = Role::findOrCreate($group_name, $guardName);
         }
 
-        foreach (self::PERMS_NAME as $perm_name) {
-            $permissions[$perm_name] = Permission::findOrCreate($perm_name);
+        foreach ($permissionsConfig as $perm_name) {
+            $permissions[$perm_name] = Permission::findOrCreate($perm_name, $guardName);
         }
 
-        $rolesConfig = config('admin.roles');
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
+
         foreach ($rolesConfig as $roleKey => $roleConfig) {
             $role_name = $roleConfig['label'];
             $role = $groups[$role_name];
@@ -39,14 +43,21 @@ class PermissionAndGroupSeeder extends Seeder
             $perms_to_assign = $roleConfig['permissions'];
 
             if (in_array('*', $perms_to_assign)) {
-                $role->syncPermissions(self::PERMS_NAME);
+                $role->syncPermissions(array_values($permissions));
             } else {
-                $role->syncPermissions($perms_to_assign);
+                $resolvedPermissions = [];
+                foreach ($perms_to_assign as $perm_name) {
+                    if (isset($permissions[$perm_name])) {
+                        $resolvedPermissions[] = $permissions[$perm_name];
+                    }
+                }
+
+                $role->syncPermissions($resolvedPermissions);
             }
         }
 
         if (isset($groups['Super Admin'])) {
-            $groups['Super Admin']->syncPermissions(self::PERMS_NAME);
+            $groups['Super Admin']->syncPermissions(array_values($permissions));
         }
     }
 }
