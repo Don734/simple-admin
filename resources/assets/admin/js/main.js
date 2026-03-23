@@ -1,5 +1,4 @@
 import Chart, { elements } from "chart.js/auto";
-import DataTable from "datatables.net-dt"
 import TomSelect from "tom-select"
 import DnD from "./drop";
 import './bootstrap';

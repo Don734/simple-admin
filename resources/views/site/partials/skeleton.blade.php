@@ -10,7 +10,6 @@
                         <span class="placeholder col-12 mb-2"></span>
                         <span class="placeholder col-10"></span>
                     </div>
-
                 </div>
             </div>
         </div>
