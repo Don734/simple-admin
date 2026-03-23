@@ -13,6 +13,16 @@
 @endsection
 
 @section('content')
+@php
+    $dtColumns = json_encode([
+        ['data' => 'id',         'name' => 'id',         'orderable' => true,  'searchable' => false],
+        ['data' => 'name',       'name' => 'name',       'orderable' => true,  'searchable' => true],
+        ['data' => 'email',      'name' => 'email',      'orderable' => true,  'searchable' => true],
+        ['data' => 'registered', 'name' => 'created_at', 'orderable' => true,  'searchable' => false],
+        ['data' => 'status',     'name' => 'is_active',  'orderable' => true,  'searchable' => false],
+        ['data' => 'actions',    'name' => 'actions',    'orderable' => false, 'searchable' => false],
+    ]);
+@endphp
 <div class="card">
     <div class="card-body">
         <div class="table-wrap">
@@ -28,56 +38,28 @@
                 ])
             </div>
             <div class="table-responsive">
-                <table class="table table-borderless data-table">
+                <table
+                    class="table table-borderless data-table"
+                    data-datatable="true"
+                    data-ajax-url="{{ dashboard_route('admin.users.data') }}"
+                    data-search-input=".search-form #search"
+                    data-length-select=".showing-form #showing"
+                    data-order='@json([[0, "desc"]])'
+                    data-columns="{{ $dtColumns }}"
+                >
                     @include('admin.partials.table.head',[
                         'fields'=>[
-                            'id'=>['sortable'=>false,"name"=>"#ID"],
+                            'id'=>['sortable'=>false,"name"=>"#ID",'class'=>'table-col-id'],
                             'name'=>['sortable'=>false,"name"=>"Name"],
                             'email'=>['sortable'=>false,"name"=>"Email"],
                             'registered'=>['sortable'=>false,"name"=>"Registered"],
                             'status'=>['sortable'=>false,"name"=>"Status"],
-                            'actions'=>['sortable'=>false,"name"=>"",'class'=>'no-sort'],
+                            'actions'=>['sortable'=>false,"name"=>"",'class'=>'no-sort table-col-actions'],
                         ]
                     ])
-                    <tbody>
-                        @foreach ($items as $item)
-                        <tr>
-                            <td>#{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>
-                                {{ $item->email }}
-                                <br>
-                                @if($item->api_token)
-                                <b>Token:</b> <small><i>{{$item->api_token}}</i></small>
-                                @endif
-                            </td>
-                            <td>{{ getDefaultFormat($item->created_at, "Y/m/d H:i:s") }}</td>
-                            <td>
-                                <span class="badge text-bg-{{$item->is_active ? "success" : "danger"}}">
-                                    {{$item->is_active ? __('admin.active'): __('admin.not_active')}}
-                                </span>
-                            </td>
-                            <td>
-                                @include('admin.partials.table.actions', [
-                                  'item' => $item,
-                                  'edit_route' => dashboard_route(config("admin.route_name_prefix").'users.edit', ['user'=>$item->id]),
-                                  'destroy_route' => dashboard_route(config("admin.route_name_prefix").'users.destroy', ['user'=>$item->id]),
-                                ])
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
-            @if (count($items))
-                <div class="table-footer">
-                    @include('admin.partials.table.footer', [
-                        'pagination' => true,
-                        'results' => true,
-                        'items' => $items, 
-                    ])
-                </div>
-            @endif
         </div>
     </div>
 </div>

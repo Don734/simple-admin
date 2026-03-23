@@ -9,86 +9,12 @@ window.TomSelect = TomSelect;
 window.DnD = DnD;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const dataTable = document.querySelectorAll('.data-table');
-  if (dataTable.length) {
-    initDataTable();
-  }
   chartInit();
   customSelect();
   DnDForm();
   setCover();
+  initPasswordToggle();
 });
-
-function initDataTable() {
-  const table = document.querySelector('table.data-table');
-
-  const dataTable = new DataTable(table, {
-    "dom": 'rt',
-    columnDefs: [
-      {
-        orderable: false,
-        targets: 'no-sort'
-      }
-    ],
-    select: {
-      style: 'multi',
-      selector: 'td:first-child',
-    },
-    order: [[0, 'desc']],
-  });
-  const searchInput = document.querySelector('.search-form #search');
-  const perPageSelect = document.querySelector('.showing-form #showing');
-
-  let ajaxDataTable = {
-    _method: "GET",
-    _token: document.head.querySelector('meta[name="csrf-token"]').textContent
-  }
-
-  searchInput?.addEventListener('keyup', (e) => {
-    console.log(e);
-    dataTable.search(e.target.value).draw();
-  })
-
-  perPageSelect?.addEventListener('change', (e) => {
-    console.log(e);
-    dataTable.page.len(parseInt(e.target.value, 10)).draw();
-  })
-
-  // table.querySelectorAll('th.no-sort').forEach((th) => {
-  //   const index = [...th.parentNode.children].indexOf(th);
-  // })
-
-  // searchInput.addEventListener('input', (e) => {
-  //   dataTable.search(e.target.value);
-  // })
-
-  // perPageSelect.addEventListener('change', (e) => {
-  //   dataTable.perPage = parseInt(e.target.value, 10);
-  //   dataTable.update();
-  // })
-  // const searchForm = $('.search-form #search');
-  // const perPage = $('.showing-form #showing');
-  // const pagination = $('.pagination');
-  // let dataTable = table.DataTable({
-  //   "dom": 'rt',
-  //   columnDefs: [
-  //     {
-  //       orderable: false,
-  //       targets: 'no-sort'
-  //     },
-  //     // {
-  //     //   render: DataTable.render.select(),
-  //     //   targets: 'selectable'
-  //     // }
-  //   ],
-  //   select: {
-  //     style: 'multi',
-  //     selector: 'td:first-child',
-  //   },
-  //   order: [[0, 'desc']],
-  //   autoWidth: false
-  // });
-}
 
 function chartInit() {
   const chartLine = document.getElementById("lineChart");
@@ -331,7 +257,6 @@ function DnDForm() {
   });
 }
 
-
 function setCover() {
   document.addEventListener('click', async (e) => {
     if (!e.target.classList.contains('set-cover-btn')) return;
@@ -351,4 +276,27 @@ function setCover() {
         console.error('Error setting cover:', e);
     }
   });
+}
+
+function initPasswordToggle() {
+    const passwordInput = document.getElementById('password');
+    const toggleButton = document.getElementById('toggle-password');
+
+    if (!passwordInput || !toggleButton) {
+        return;
+    }
+
+    toggleButton.addEventListener('click', function () {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+
+        const icon = this.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('bi-eye', !isPassword);
+            icon.classList.toggle('bi-eye-slash', isPassword);
+        }
+
+        this.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+        this.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
+    });
 }

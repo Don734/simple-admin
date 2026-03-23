@@ -19,11 +19,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(base_path('routes/web.php'));
 
             Route::middleware(['web'])
-                ->namespace($namespace . "\Auth")
-                ->prefix('auth')
-                ->group(base_path("routes/auth.php"));
-
-            Route::middleware(['web', 'auth'])
                 ->prefix('admin')
                 ->as('admin.')
                 ->namespace($namespace.'\Admin')
@@ -31,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->redirectGuestsTo(fn () => route('admin.login'));
+        $middleware->redirectUsersTo(fn () => route('admin.dashboard'));
         $middleware->alias([
             'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         ]);

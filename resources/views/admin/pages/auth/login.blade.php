@@ -1,20 +1,23 @@
-@extends('layouts.admin-auth')
+@extends('layouts.admin')
 
 @section('content')
-    <form action="{{route('login')}}" method="POST">
+    <form action="{{dashboard_route('admin.login.process')}}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="email" class="form-label">Email*</label>
+            <label for="login" class="form-label">Username or Email*</label>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" placeholder="mail@domain.com">
-                <label for="email">mail@domain.com</label>
+                <input type="text" class="form-control" id="login" name="login" value="{{ old('login') }}" placeholder="username or mail@domain.com">
+                <label for="login">username or mail@domain.com</label>
             </div>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password*</label>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" name="password" placeholder="name@example.com">
+            <div class="form-floating position-relative mb-3">
+                <input type="password" class="form-control" id="password" name="password" placeholder="name@example.com" style="padding-right: calc(3.5rem + 2px);">
                 <label for="password">Min. 8 characters</label>
+                <button type="button" class="btn btn-eye" id="toggle-password" aria-label="Show password" aria-pressed="false">
+                    <i class="bi bi-eye" aria-hidden="true"></i>
+                </button>
             </div>
         </div>  
         <div class="d-flex justify-content-between">
@@ -22,11 +25,11 @@
                 <input type="checkbox" class="form-check-input" id="keep_logged_in" name="keep_logged_in">
                 <label class="form-check-label" for="keep_logged_in">Keep me logged in</label>
             </div>
-            <a href="">Forgot password?</a>
+            <a href="#">Forgot password?</a>
         </div>
         <button type="submit" class="btn">Sign In</button>
     </form>
-    @error('email')
+    @error('login')
         <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
             <strong>{{ $message }}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

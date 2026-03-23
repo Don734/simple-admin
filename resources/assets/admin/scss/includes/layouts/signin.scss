@@ -25,6 +25,18 @@
             border: 1px solid $hover-color;
             border-radius: 12px;
 
+            &-eye {
+                position: absolute;
+                right: 5px;
+                top: 50%;
+                transform: translateY(-50%);
+                min-width: unset;
+                width: 30px;
+                height: 30px;
+                color: $white;
+                cursor: pointer;
+            }
+
             &:hover {
                 background-color: $btn-hover-color;
             }
