@@ -1,9 +1,6 @@
 <header class="header">
     <div class="d-flex align-items-center">
-        <div class="flex-grow-1 d-flex align-items-center">
-            <button class="btn p-0 me-3 d-md-none" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-label="Toggle sidebar">
-                <i class="bi bi-list fs-3"></i>
-            </button>
+        <div class="flex-grow-1">
             @yield('breadcrumb')
         </div>
         <div class="flex-shrink-0">
