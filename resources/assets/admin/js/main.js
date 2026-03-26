@@ -1,10 +1,7 @@
 import Chart, { elements } from "chart.js/auto";
-import TomSelect from "tom-select"
 import DnD from "./drop";
 import './bootstrap';
-import "tom-select/dist/css/tom-select.bootstrap5.min.css";
 
-window.TomSelect = TomSelect;
 window.DnD = DnD;
 
 document.addEventListener('DOMContentLoaded', () => {
