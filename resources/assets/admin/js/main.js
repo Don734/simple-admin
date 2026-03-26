@@ -6,7 +6,6 @@ window.DnD = DnD;
 
 document.addEventListener('DOMContentLoaded', () => {
   chartInit();
-  customSelect();
   DnDForm();
   setCover();
   initPasswordToggle();
@@ -191,27 +190,6 @@ function chartInit() {
   }
 }
 
-function customSelect() {
-  const elements = document.querySelectorAll('.custom-select')
-  console.log(elements);
-  
-  elements.forEach((el) => {
-    if (!el) return;
-    console.log(el);
-    
-    const isMultiple = el.hasAttribute('multiple');
-    const canCreate = el.dataset.create === 'true';
-
-    new TomSelect(el, {
-      maxItems: isMultiple ? null : 1,
-      create: canCreate,
-      persist: false,
-      allowEmptyOption: !isMultiple,
-      placeholder: el.dataset.placeholder || '',
-      plugins: isMultiple ? ['remove_button'] : []
-    });
-  })
-}
 
 function DnDForm() {
   const form = document.querySelector('.dropForm');
