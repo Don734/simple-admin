@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
 
         if (User::whereEmail(config('admin.seed.default_admin.email'))->doesntExist()) {
             $user = User::create([
-                'name' => config('admin.seed.default_admin.name'),
+                'first_name' => config('admin.seed.default_admin.first_name'),
+                'last_name' => config('admin.seed.default_admin.last_name'),
                 'email' =>  config('admin.seed.default_admin.email'),
                 'password' => Hash::make(config('admin.seed.default_admin.password')),
                 'email_verified_at' => now(),

@@ -22,7 +22,7 @@ class AuthController extends Controller
         ]);
 
         $login = trim((string) $request->input('login', $request->input('email', '')));
-        $loginField = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $loginField = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
         $credentials = [
             $loginField => $login,

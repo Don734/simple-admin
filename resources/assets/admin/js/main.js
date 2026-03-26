@@ -4,6 +4,13 @@ import './bootstrap';
 
 window.DnD = DnD;
 
+// Alpine is bundled inside Livewire v4 — do NOT import it separately.
+// Register Alpine plugins or global data here, before Alpine initializes.
+document.addEventListener('alpine:init', () => {
+    // Alpine.data('myComponent', () => ({ ... }))
+    // Alpine.store('myStore', { ... })
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   chartInit();
   DnDForm();
@@ -189,7 +196,6 @@ function chartInit() {
     new Chart(pieChart, chartPieOptions);
   }
 }
-
 
 function DnDForm() {
   const form = document.querySelector('.dropForm');

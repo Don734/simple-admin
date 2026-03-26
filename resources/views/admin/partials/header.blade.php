@@ -1,6 +1,9 @@
 <header class="header">
     <div class="d-flex align-items-center">
-        <div class="flex-grow-1">
+        <div class="flex-grow-1 d-flex align-items-center">
+            <button class="btn p-0 me-3 d-md-none" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-label="Toggle sidebar">
+                <i class="bi bi-list fs-3"></i>
+            </button>
             @yield('breadcrumb')
         </div>
         <div class="flex-shrink-0">
@@ -56,7 +59,7 @@
                             <li class="dropdown-item"><a href="{{ dashboard_route('admin.profile') }}"><span class="icon"><i class="bi bi-person"></i></span> Account</a></li>
                             <li class="dropdown-item"><a href="{{ dashboard_route('admin.settings') }}"><span class="icon"><i class="bi bi-gear"></i></span> Settings</a></li>
                             <li class="dropdown-item">
-                                <form action="{{ route('logout') }}" method="post">
+                                <form action="{{ dashboard_route('admin.logout') }}" method="post">
                                     @csrf
                                     <button type="submit"><span class="icon"><i class="bi bi-box-arrow-right"></i></span> Logout</button>
                                 </form>

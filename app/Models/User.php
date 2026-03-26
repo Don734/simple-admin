@@ -62,6 +62,13 @@ class User extends Authenticatable
         return $this->images->where('pivot.meta', self::LEAD_IMAGE)->first();
     }
 
+    public function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => trim("{$this->first_name} {$this->last_name}"),
+        );
+    }
+
     // ****** BEGIN Relations ************
 
     

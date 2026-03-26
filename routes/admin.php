@@ -16,6 +16,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/profile/{user}', 'UserController@profileUpdate')->name('profile.update');
     Route::post('/users/{user}/update-pass', 'UserController@userUpdatePassword')->name('users.update_pass');
+    Route::post('logout', 'Auth\AuthController@destroy')->name('logout');
 
+    Route::resource('media', 'MediaController')->parameters(['media' => 'media']);
     Route::resource('users', 'UserController');
 });

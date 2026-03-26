@@ -17,6 +17,16 @@ class MediaController extends Controller
         }
 
         $media = $query->orderBy('created_at', 'desc')->paginate(50);
-        return response()->json($media);
+        return view('admin.pages.media.list', compact('media'));
+    }
+
+    public function destroy(Media $media)
+    {
+        abort_unless(auth()->user()?->can('manage_media'), 403);
+        if (!$media) {
+            $this->alert("warning", "Media not found");
+        }
+        $media->delete();
+        return redirect()->route('admin.media.index')->with('success', 'Media deleted.');
     }
 }

@@ -3,9 +3,7 @@
 return [
     'menu' => [
         'dashboard' => 'Dashboard',
-        'projects' => 'Projects',
-        'categories' => 'Categories',
-        'technologies' => 'Technologies',
+        'media' => 'Media',
         'users' => 'Users',
     ],
     'account' => 'Account',

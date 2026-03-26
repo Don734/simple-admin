@@ -35,10 +35,11 @@ class UserController extends Controller
         $orderDirection = strtolower((string) $request->input('order.0.dir', 'desc')) === 'asc' ? 'asc' : 'desc';
         $orderColumns = [
             0 => 'id',
-            1 => 'name',
-            2 => 'email',
-            3 => 'created_at',
-            4 => 'is_active',
+            1 => 'first_name',
+            2 => 'last_name',
+            3 => 'email',
+            4 => 'created_at',
+            5 => 'is_active',
         ];
         $orderColumn = $orderColumns[$orderColumnIndex] ?? 'id';
 
@@ -48,7 +49,8 @@ class UserController extends Controller
         if ($searchValue !== '') {
             $query->where(function ($builder) use ($searchValue) {
                 $builder
-                    ->where('name', 'like', "%{$searchValue}%")
+                    ->where('first_name', 'like', "%{$searchValue}%")
+                    ->orWhere('last_name', 'like', "%{$searchValue}%")
                     ->orWhere('email', 'like', "%{$searchValue}%")
                     ->orWhere('id', 'like', "%{$searchValue}%");
             });
@@ -68,7 +70,7 @@ class UserController extends Controller
 
             return [
                 'id' => '#'.$user->id,
-                'name' => $user->name,
+                'name' => $user->fullName,
                 'email' => e($user->email),
                 'registered' => getDefaultFormat($user->created_at),
                 'status' => '<span class="badge bg-'.$statusClass.'">'.$statusLabel.'</span>',

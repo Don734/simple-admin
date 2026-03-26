@@ -57,8 +57,17 @@ button {
     }
 }
 
+[x-cloak] { display: none !important; }
+
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 99;
+}
+
 .sidebar {
-    position: absolute;
+    position: fixed;
     left: 0;
     display: none;
     max-width: 290px;
@@ -66,6 +75,11 @@ button {
     height: 100vh;
     background-color: $white;
     overflow-y: auto;
+    z-index: 100;
+
+    &.sidebar--open {
+        display: block;
+    }
 
     .navbar-brand {
         display: flex;

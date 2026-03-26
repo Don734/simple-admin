@@ -1,4 +1,4 @@
-<aside class="sidebar">
+<aside class="sidebar" :class="{ 'sidebar--open': mobileOpen }">
     <a href="{{ dashboard_route(config("admin.route_name_prefix")."dashboard") }}" class="navbar-brand">
         <span class="text">{!! config("admin.name") !!}</span>
     </a>

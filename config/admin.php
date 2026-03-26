@@ -29,18 +29,18 @@ return [
             'route'      => 'admin.dashboard',
             'permission' => 'view_dashboard'
         ],
-        [
-            'title'      => 'projects',
-            'icon'       => 'bi bi-briefcase',
-            'route'      => 'admin.projects.index',
-            'permission' => 'view_projects',
-        ],
         // [
-        //     'title'       => 'media',
-        //     'icon'       => 'bi bi-image',
-        //     'route'      => 'admin.media.index',
-        //     'permission' => 'view_media',
+        //     'title'      => 'projects',
+        //     'icon'       => 'bi bi-briefcase',
+        //     'route'      => 'admin.projects.index',
+        //     'permission' => 'view_projects',
         // ],
+        [
+            'title'       => 'media',
+            'icon'       => 'bi bi-image',
+            'route'      => 'admin.media.index',
+            'permission' => 'view_media',
+        ],
         [
             'title'       => 'users',
             'icon'       => 'bi bi-people',
@@ -57,11 +57,6 @@ return [
     'permissions' => [
         'view_dashboard',
         'view_activity',
-        'manage_projects',
-        'view_projects',
-        'create_projects',
-        'update_projects',
-        'delete_projects',
         'view_media',
         'upload_media',
         'manage_media',
@@ -91,10 +86,6 @@ return [
             'permissions' => [
                 'view_dashboard',
                 'view_activity',
-                'view_projects',
-                'create_projects',
-                'update_projects',
-                'delete_projects',
                 'view_media',
                 'upload_media',
             ],
@@ -103,7 +94,6 @@ return [
             'label' => 'Viewer',
             'permissions' => [
                 'view_dashboard',
-                'view_projects',
                 'view_media',
             ],
         ],
@@ -263,7 +253,8 @@ return [
     */
     'seed' => [
         'default_admin' => [
-            'name' => env('ADMIN_SEED_NAME', 'Administrator'),
+            'first_name' => env('ADMIN_SEED_FIRST_NAME', 'Administrator'),
+            'last_name' => env('ADMIN_SEED_LAST_NAME', 'Administrator'),
             'email' => env('ADMIN_SEED_EMAIL', 'admin@example.com'),
             'password' => env('ADMIN_SEED_PASSWORD', 'password'), // override in env for prod
             'role' => 'super admin',

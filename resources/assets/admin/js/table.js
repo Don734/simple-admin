@@ -16,7 +16,17 @@ function initDataTable(tableElement) {
         return;
     }
 
-    const columns = parseJsonAttribute(tableElement.dataset.columns, []);
+    // Собираем индексы колонок с render:'html' и убираем сентинел.
+    // Вставка HTML делается в createdRow — table-level колбэк DataTables v2,
+    // который гарантированно вызывается после добавления строки в DOM.
+    const htmlColumnIndices = [];
+    const columns = parseJsonAttribute(tableElement.dataset.columns, []).map((col, index) => {
+        if (col.render === 'html') {
+            delete col.render;
+            htmlColumnIndices.push(index);
+        }
+        return col;
+    });
     const order = parseJsonAttribute(tableElement.dataset.order, [[0, "desc"]]);
     const searchInput = getOptionalElement(tableElement.dataset.searchInput);
     const lengthSelect = getOptionalElement(tableElement.dataset.lengthSelect);
@@ -32,6 +42,14 @@ function initDataTable(tableElement) {
             },
         },
         columns,
+        createdRow: function (row, data) {
+            htmlColumnIndices.forEach(function (colIndex) {
+                const cell = row.querySelectorAll('td')[colIndex];
+                if (cell) {
+                    cell.innerHTML = data[columns[colIndex].data] ?? '';
+                }
+            });
+        },
         dom: 'rt<"datatable-footer d-flex justify-content-between align-items-center flex-wrap gap-3 mt-3"ip>',
         info: true,
         lengthChange: false,
