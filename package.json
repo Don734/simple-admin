@@ -20,6 +20,8 @@
     "dependencies": {
         "bootstrap": "^5.3.3",
         "chart.js": "^4.4.7",
+        "choices.js": "^11.2.1",
+        "quill": "^2.0.3",
         "datatables.net-dt": "^2.3.5"
     }
 }

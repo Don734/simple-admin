@@ -1,5 +1,6 @@
 import Chart, { elements } from "chart.js/auto";
 import DnD from "./drop";
+import Choices from 'choices.js';
 import './bootstrap';
 
 window.DnD = DnD;
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   DnDForm();
   setCover();
   initPasswordToggle();
+  initChoices();
 });
 
 function chartInit() {
@@ -279,4 +281,15 @@ function initPasswordToggle() {
         this.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
         this.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
     });
+}
+
+function initChoices() {
+  document.querySelectorAll('select.custom-select').forEach((el) => {
+    new Choices(el, {
+      searchEnabled: true,
+      itemSelectText: '',
+      shouldSort: false,
+      removeItemButton: true,
+    });
+  });
 }
