@@ -26,7 +26,7 @@
             </div>
         @else
             {{-- Main Admin Interface --}}
-            <div class="sidebar-overlay d-md-none" x-show="mobileOpen" x-cloak @click="mobileOpen = false"></div>
+            <div class="sidebar-overlay d-md-none"></div>
             @include('admin.partials.sidebar')
             <div class="content">
                 <div class="container-fluid">
