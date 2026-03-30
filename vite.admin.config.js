@@ -3,6 +3,14 @@ import laravel from 'laravel-vite-plugin';
 import path from 'path';
 
 export default defineConfig({
+    css: {
+        preprocessorOptions: {
+            scss: {
+                quietDeps: true,
+                silenceDeprecations: ['legacy-js-api', 'import', 'global-builtin', 'color-functions', 'mixed-decls'],
+            },
+        },
+    },
     plugins: [
         laravel({
             name: 'admin',
