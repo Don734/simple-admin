@@ -15,7 +15,6 @@
 @endsection
 
 @section('content')
-<livewire:admin.test-ping />
 <div class="row row-cols-1 row-cols-lg-4 g-4 mb-4">
     <div class="col">
         <div class="card card-dashboard">

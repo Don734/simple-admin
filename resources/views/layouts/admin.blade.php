@@ -10,10 +10,9 @@
     <title>@yield('title', config('admin.title', 'Simple Admin'))</title>
     @yield('css')
     @vite('resources/assets/admin/scss/main.scss')
-    @livewireStyles
 </head>
 <body>
-    <div id="app" x-data="{ mobileOpen: false }">
+    <div id="app">
         @guest
             {{-- Authentication Page --}}
             <div class="content signin">
@@ -40,7 +39,6 @@
             </div>
         @endguest
     </div>
-    @livewireScripts
     @include('admin.partials.script')
 </body>
 </html>
