@@ -2,6 +2,7 @@
     <div class="d-flex align-items-center">
         <div class="flex-grow-1">
             @yield('breadcrumb')
+            @stack('breadcrumb')
         </div>
         <div class="flex-shrink-0">
             <nav class="navbar">
@@ -11,10 +12,10 @@
                 </form>
                 <ul class="nav">
                     <li class="nav-item dropdown notifications-menu">
-                        <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown">
+                        <button class="nav-link dropdown-toggle btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="icon"><i class="bi bi-bell"></i></span>
                             <span class="badge bg-danger">1</span>
-                        </a>
+                        </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li  class="dropdown-item">
                                 <a href="#">
@@ -46,15 +47,17 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="dropdown"><span class="icon"><i class="bi bi-moon-fill"></i></span></a>
+                        <button class="nav-link btn btn-link" id="theme-toggle" type="button">
+                            <span class="icon" id="theme-icon"><i class="bi bi-moon-fill"></i></span>
+                        </button>
                     </li>
                     <li class="nav-item dropdown user-menu">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <button class="nav-link dropdown-toggle btn btn-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="img-block"><span class="icon"><i class="bi bi-person"></i></span></div>
-                        </a>
+                        </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li class="dropdown-item"><a href="{{ dashboard_route('admin.profile') }}"><span class="icon"><i class="bi bi-person"></i></span> Account</a></li>
-                            <li class="dropdown-item"><a href="{{ dashboard_route('admin.settings') }}"><span class="icon"><i class="bi bi-gear"></i></span> Settings</a></li>
+                            <li class="dropdown-item"><a href="{{ dashboard_route('admin.profile') }}" wire:navigate><span class="icon"><i class="bi bi-person"></i></span> Account</a></li>
+                            <li class="dropdown-item"><a href="{{ dashboard_route('admin.settings') }}" wire:navigate><span class="icon"><i class="bi bi-gear"></i></span> Settings</a></li>
                             <li class="dropdown-item">
                                 <form action="{{ dashboard_route('admin.logout') }}" method="post">
                                     @csrf

@@ -2,14 +2,26 @@ import DataTable from "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 
 document.addEventListener("DOMContentLoaded", () => {
+    bootDataTables();
+});
+
+document.addEventListener("livewire:navigated", () => {
+    bootDataTables();
+});
+
+function bootDataTables() {
     const tables = document.querySelectorAll('table[data-datatable="true"]');
 
     tables.forEach((tableElement) => {
         initDataTable(tableElement);
     });
-});
+}
 
 function initDataTable(tableElement) {
+    if (tableElement.dataset.dtInitialized === "1") {
+        return;
+    }
+
     const ajaxUrl = tableElement.dataset.ajaxUrl;
 
     if (!ajaxUrl) {
@@ -52,6 +64,8 @@ function initDataTable(tableElement) {
 
     bindSearchInput(dataTable, searchInput);
     bindLengthSelect(dataTable, lengthSelect);
+
+    tableElement.dataset.dtInitialized = "1";
 }
 
 function bindSearchInput(dataTable, searchInput) {

@@ -1,6 +1,6 @@
 <div class="btn-group">
     @isset($edit_route)
-    <a href="{{ $edit_route }}" class="btn link-secondary"><i class="bi bi-pen"></i></a>
+    <a href="{{ $edit_route }}" class="btn link-secondary" wire:navigate><i class="bi bi-pen"></i></a>
     @endisset
     @isset($destroy_route)
     <form action="{{ $destroy_route }}" method="POST">

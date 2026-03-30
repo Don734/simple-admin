@@ -22,7 +22,7 @@
     </div>
     <div class="col-12 col-md-3">
         @if (isset($create) && $create)
-        <a href="{{ $create['link'] }}" class="btn btn-lg btn-add ms-auto">
+        <a href="{{ $create['link'] }}" class="btn btn-lg btn-add ms-auto" wire:navigate>
             <span class="icon"><i class="bi bi-plus-lg"></i></span> Add
         </a>
         @endif

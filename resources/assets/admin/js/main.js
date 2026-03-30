@@ -13,12 +13,46 @@ document.addEventListener('alpine:init', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  bootAdminUi();
+});
+
+document.addEventListener('livewire:navigated', () => {
+  bootAdminUi();
+});
+
+function bootAdminUi() {
   chartInit();
   DnDForm();
   setCover();
+  syncSidebarActiveState();
+  initBootstrapDropdowns();
+  initTheme();
   initPasswordToggle();
   initChoices();
-});
+}
+
+function syncSidebarActiveState() {
+  const currentPath = normalizePath(window.location.pathname);
+  const sidebarLinks = document.querySelectorAll('[data-sidebar-link]');
+
+  sidebarLinks.forEach((link) => {
+    const href = link.getAttribute('href');
+
+    if (!href) {
+      return;
+    }
+
+    const targetPath = normalizePath(new URL(href, window.location.origin).pathname);
+    const isActive = currentPath === targetPath;
+
+    link.classList.toggle('active', isActive);
+    link.setAttribute('aria-current', isActive ? 'page' : 'false');
+  });
+}
+
+function normalizePath(path) {
+  return path.length > 1 ? path.replace(/\/+$/, '') : path;
+}
 
 function chartInit() {
   const chartLine = document.getElementById("lineChart");
@@ -260,6 +294,52 @@ function setCover() {
   });
 }
 
+function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    if (!themeToggle || !themeIcon) {
+        return;
+    }
+
+    const theme = localStorage.getItem('theme') || 'light';
+    const html = document.documentElement;
+    html.setAttribute('data-bs-theme', theme);
+
+    function updateIcon() {
+        const theme = html.getAttribute('data-bs-theme');
+        themeIcon.innerHTML = theme === 'dark' 
+          ? '<i class="bi bi-sun-fill"></i>' 
+          : '<i class="bi bi-moon-fill"></i>';
+    }
+
+    if (themeToggle.dataset.themeBound === '1') {
+      updateIcon();
+      return;
+    }
+
+    themeToggle.dataset.themeBound = '1';
+
+    themeToggle.addEventListener('click', function () {
+        const current = html.getAttribute('data-bs-theme');
+        const newTheme = current === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-bs-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateIcon();
+    });
+
+    updateIcon();
+}
+
+function initBootstrapDropdowns() {
+  if (!window.bootstrap?.Dropdown) {
+    return;
+  }
+
+  document.querySelectorAll('[data-bs-toggle="dropdown"]').forEach((toggle) => {
+    window.bootstrap.Dropdown.getOrCreateInstance(toggle);
+  });
+}
+
 function initPasswordToggle() {
     const passwordInput = document.getElementById('password');
     const toggleButton = document.getElementById('toggle-password');
@@ -285,11 +365,17 @@ function initPasswordToggle() {
 
 function initChoices() {
   document.querySelectorAll('select.custom-select').forEach((el) => {
+    if (el.dataset.choicesInitialized === '1') {
+      return;
+    }
+
     new Choices(el, {
       searchEnabled: true,
       itemSelectText: '',
       shouldSort: false,
       removeItemButton: true,
     });
+
+    el.dataset.choicesInitialized = '1';
   });
 }
