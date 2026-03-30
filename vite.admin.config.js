@@ -18,6 +18,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
+            '~choices.js': path.resolve(__dirname, 'node_modules/choices.js'),
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
         },
     },
