@@ -21,7 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware(['web'])
                 ->prefix('admin')
                 ->as('admin.')
-                ->namespace($namespace.'\Admin')
+
                 ->group(base_path('routes/admin.php'));
         }
     )

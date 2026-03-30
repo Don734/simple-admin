@@ -1,18 +1,16 @@
-@extends('layouts.admin')
-
-@section('breadcrumb')
-    @include('admin.partials.breadcrumb', [
-        'title' => 'Profile',
-        'list' => [
-            [
-                'name' => 'Profile',
-                'current' => true
+<div>
+    @push('breadcrumb')
+        @include('admin.partials.breadcrumb', [
+            'title' => 'Profile',
+            'list' => [
+                [
+                    'name' => 'Profile',
+                    'current' => true
+                ]
             ]
-        ]
-    ])
-@endsection
+        ])
+    @endpush
 
-@section('content')
 <div class="row row-cols-1 row-cols-md-2">
     <div class="col">
         <div class="row row-cols-1 mt-0 g-4">
@@ -62,7 +60,7 @@
                             <div class="col mb-3">
                                 <label for="phone" class="form-label">@lang('admin.phone')</label>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="@lang('admin.phone')" {{old('phone', $phone)}}>
+                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="@lang('admin.phone')" value="{{ old('phone', $phone) }}">
                                     <label for="phone">@lang('admin.phone')</label>
                                 </div>
                             </div>
@@ -122,4 +120,4 @@
         </div>
     </div>
 </div>
-@endsection
+</div>

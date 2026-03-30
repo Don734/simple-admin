@@ -1,7 +1,5 @@
-@extends('layouts.admin')
-
-@section('content')
-    <form action="{{dashboard_route('admin.login.process')}}" method="POST">
+<div>
+    <form action="{{ dashboard_route('admin.login.process') }}" method="POST">
         @csrf
         <div class="mb-3">
             <label for="login" class="form-label">Phone or Email*</label>
@@ -43,4 +41,4 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @enderror
-@endsection
+</div>
