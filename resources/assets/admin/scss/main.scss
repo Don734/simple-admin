@@ -41,6 +41,9 @@
 @import "~bootstrap/scss/_tooltip";
 @import "~bootstrap/scss/_transitions";
 
+// Choices.js
+@import "~choices.js/public/assets/styles/choices.min.css";
+
 //BASE
 @import './includes/base/_vars';
 @import './includes/base/_default';
@@ -48,6 +51,7 @@
 
 // MODULES
 // @import './includes/layouts/dashboard';
+@import './includes/layouts/choices';
 @import './includes/layouts/table';
 @import './includes/layouts/orders';
 @import './includes/layouts/signin';
