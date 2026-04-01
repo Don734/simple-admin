@@ -8,9 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <title>{{ $title ?? config('admin.title', 'Simple Admin') }}</title>
+    @yield('css')
     @vite('resources/assets/admin/scss/main.scss')
     @livewireStyles
-    @stack('styles')
 </head>
 <body>
     <div id="app">
@@ -40,6 +40,5 @@
     </div>
     @include('admin.partials.script')
     @livewireScripts
-    @stack('scripts')
 </body>
 </html>
