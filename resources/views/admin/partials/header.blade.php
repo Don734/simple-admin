@@ -2,7 +2,6 @@
     <div class="d-flex align-items-center">
         <div class="flex-grow-1">
             @yield('breadcrumb')
-            @stack('breadcrumb')
         </div>
         <div class="flex-shrink-0">
             <nav class="navbar">

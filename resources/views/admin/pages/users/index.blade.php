@@ -1,10 +1,10 @@
 <div>
-    @push('breadcrumb')
+    @section('breadcrumb')
         @include('admin.partials.breadcrumb', [
             'title' => 'Users',
             'list' => [['name' => 'Users', 'current' => true]]
         ])
-    @endpush
+    @endsection
 
     @php
         $dtColumns = json_encode([

@@ -1,12 +1,12 @@
 <div>
-    @push('breadcrumb')
+    @section('breadcrumb')
         @include('admin.partials.breadcrumb', [
             'title' => 'Media',
             'list' => [
                 ['name' => 'Media', 'current' => true]
             ]
         ])
-    @endpush
+    @endsection
 
     <div class="card">
         <div class="card-body">

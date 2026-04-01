@@ -1,5 +1,5 @@
 <div>
-    @push('breadcrumb')
+    @section('breadcrumb')
         @include('admin.partials.breadcrumb', [
             'title' => 'Settings',
             'list' => [
@@ -9,5 +9,5 @@
                 ]
             ]
         ])
-    @endpush
+    @endsection
 </div>

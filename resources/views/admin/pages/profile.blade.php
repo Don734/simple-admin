@@ -1,5 +1,5 @@
 <div>
-    @push('breadcrumb')
+    @section('breadcrumb')
         @include('admin.partials.breadcrumb', [
             'title' => 'Profile',
             'list' => [
@@ -9,7 +9,7 @@
                 ]
             ]
         ])
-    @endpush
+    @endsection
 
 <div class="row row-cols-1 row-cols-md-2">
     <div class="col">

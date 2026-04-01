@@ -1,5 +1,5 @@
 <div>
-    @push('breadcrumb')
+    @section('breadcrumb')
         @include('admin.partials.breadcrumb', [
             'title' => 'Create User',
             'list' => [
@@ -9,7 +9,7 @@
                 ]
             ]
         ])
-    @endpush
+    @endsection
 
     <form action="{{ route('admin.users.store') }}" method="post" enctype="multipart/form-data">
         @csrf
