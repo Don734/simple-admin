@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 abstract class Controller
 {
-    public function alert($status, $message) 
+    public function alert(string $status, string $message): void
     {
         session()->flash($status, $message);
     }

@@ -11,10 +11,12 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^4.2",
         "maatwebsite/excel": "^3.1",
+        "sentry/sentry-laravel": "^4.26",
         "spatie/laravel-medialibrary": "^11.17",
         "spatie/laravel-permission": "^6.10"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.7",
         "fakerphp/faker": "^1.23",
         "larastan/larastan": "^3.2",
         "laravel/pint": "^1.13",
@@ -45,7 +47,9 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:models --nowrite"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -55,8 +59,13 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
-        "analyze": "phpstan analyse --memory-limit=256M",
-        "analyze:baseline": "phpstan analyse --memory-limit=256M --generate-baseline"
+        "analyze": "phpstan analyse --memory-limit=2G",
+        "analyze:baseline": "phpstan analyse --memory-limit=2G --generate-baseline",
+        "ide": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:models --nowrite"
+        ]
     },
     "extra": {
         "laravel": {
