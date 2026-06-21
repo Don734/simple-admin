@@ -1,22 +1,12 @@
 import Chart, { elements } from "chart.js/auto";
 import DnD from "./drop";
 import Choices from 'choices.js';
+import * as bootstrap from 'bootstrap';
 import './bootstrap';
 
 window.DnD = DnD;
 
-// Alpine is bundled inside Livewire v4 — do NOT import it separately.
-// Register Alpine plugins or global data here, before Alpine initializes.
-document.addEventListener('alpine:init', () => {
-    // Alpine.data('myComponent', () => ({ ... }))
-    // Alpine.store('myStore', { ... })
-});
-
 document.addEventListener('DOMContentLoaded', () => {
-  bootAdminUi();
-});
-
-document.addEventListener('livewire:navigated', () => {
   bootAdminUi();
 });
 
